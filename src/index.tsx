@@ -1,1 +1,1 @@
-export { default as ReactPhotoCollage } from './react-photo-collage/react-photo-collage-container';
+export { default as AkeedPhotoCollage } from './react-photo-collage/react-photo-collage-container';
