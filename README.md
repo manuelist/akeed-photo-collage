@@ -15,7 +15,7 @@ npm install akeed-photo-collage
       <th style="width: 50px;">Type</th>
       <th style="width: 50px;">Required</th>
       <th style="width: 50px;">Default</th>
-      <th style="width: 50px;">Description</th>
+      <th style="width: 50px;">Values</th>
     </tr>
   </thead>
   <tbody>
@@ -60,6 +60,20 @@ npm install akeed-photo-collage
       <td>false</td>
       <td>of</td>
       <td></td>
+    </tr>
+    <tr>
+      <td>imageRadius</td>
+      <td>string</td>
+      <td>false</td>
+      <td>0px</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>layoutType</td>
+      <td>string</td>
+      <td>false</td>
+      <td>0px</td>
+      <td>col|row</td>
     </tr>
   </tbody>
 </table>

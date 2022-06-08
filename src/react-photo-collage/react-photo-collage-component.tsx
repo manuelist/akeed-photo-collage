@@ -10,6 +10,15 @@ SC.PhotoCollage = styled.div`
   width: ${(props) => props.collageWidth};
   font-family: Helvetica, Arial, sans-serif;
 `;
+
+SC.PhotoCollageCol = styled.div`
+  width: ${(props) => props.collageWidth};
+  font-family: Helvetica, Arial, sans-serif;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+`;
+
 SC.PhotoRow = styled.div`
   display: flex;
   height: ${(props) => props.rowHeight};
@@ -18,6 +27,19 @@ SC.PhotoRow = styled.div`
     margin-top: 2px;
   }
 `;
+
+SC.PhotoRowCol = styled.div`
+  height: ${(props) => props.layoutIndex === 0 ? props.rowHeight : props.firstIndexHeight};
+  display: ${(props) => props.layoutIndex === 0 ? 'flex' : 'grid'};
+  gap: 10px;
+  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  grid-auto-flow: column;
+  box-sizing: border-box;
+  & + & {
+    margin-top: 2px;
+  }
+`;
+
 SC.PhotoGrid = styled.div`
   display: flex;
   position: relative;
@@ -33,7 +55,7 @@ SC.PhotoThumb = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: ${(props) => props.imageRadius || '0px'}
+  border-radius: ${(props) => props.imageRadius || "0px"};
 `;
 SC.PhotoMask = styled.div`
   display: block;
@@ -70,7 +92,10 @@ interface RowPhotosProps {
   layoutNum: number;
   remainingNum: number;
   showNumOfRemainingPhotos: boolean;
-  imageRadius: string
+  imageRadius: string;
+  layoutType: string;
+  layoutIndex?: number,
+  firstIndexHeight?: string
 }
 const RowPhotos: React.FC<RowPhotosProps> = (props) => {
   const {
@@ -81,7 +106,42 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
     showNumOfRemainingPhotos,
     openLightbox,
     imageRadius,
+    layoutType,
+    layoutIndex,
+    firstIndexHeight,
   } = props;
+
+  if (layoutType === "col") {
+    return (
+      <SC.PhotoRowCol rowHeight={height} layoutIndex={layoutIndex} firstIndexHeight={firstIndexHeight}>
+        {photos.map((data, i) => {
+          return (
+            <SC.PhotoGrid
+              key={i}
+              data-id={data.id}
+              onClick={(e) => openLightbox(e.currentTarget.dataset.id)}
+            >
+              {showNumOfRemainingPhotos &&
+              remainingNum > 0 &&
+              data.id === layoutNum - 1 ? (
+                <React.Fragment>
+                  <SC.PhotoMask></SC.PhotoMask>
+                  <SC.ViewMore>
+                    <SC.NumOfRemaining>{remainingNum}</SC.NumOfRemaining>
+                  </SC.ViewMore>
+                </React.Fragment>
+              ) : null}
+              <SC.PhotoThumb
+                thumb={data.source}
+                imageRadius={imageRadius}
+              ></SC.PhotoThumb>
+            </SC.PhotoGrid>
+          );
+        })}
+      </SC.PhotoRowCol>
+    );
+  }
+
   return (
     <SC.PhotoRow rowHeight={height}>
       {photos.map((data, i) => {
@@ -101,7 +161,10 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
                 </SC.ViewMore>
               </React.Fragment>
             ) : null}
-            <SC.PhotoThumb thumb={data.source} imageRadius={imageRadius}></SC.PhotoThumb>
+            <SC.PhotoThumb
+              thumb={data.source}
+              imageRadius={imageRadius}
+            ></SC.PhotoThumb>
           </SC.PhotoGrid>
         );
       })}
@@ -118,7 +181,8 @@ interface ReactPhotoCollageComponentProps {
   remainingNum: number;
   showNumOfRemainingPhotos: boolean;
   openLightbox: any;
-  imageRadius: string,
+  imageRadius: string;
+  layoutType: string;
 }
 export const ReactPhotoCollageComponent: React.FC<
   ReactPhotoCollageComponentProps
@@ -133,7 +197,33 @@ export const ReactPhotoCollageComponent: React.FC<
     showNumOfRemainingPhotos,
     openLightbox,
     imageRadius,
+    layoutType,
   } = props;
+
+  if (layoutType === "col") {
+    return (
+      <SC.PhotoCollageCol collageWidth={width}>
+        {layout.map((data, i) => {
+          return (
+            <RowPhotos
+              key={i}
+              layoutIndex={i}
+              firstIndexHeight={height[0]}
+              height={height[i]}
+              photos={layoutPhotoMaps[i]}
+              openLightbox={openLightbox}
+              layoutNum={layoutNum}
+              remainingNum={remainingNum}
+              showNumOfRemainingPhotos={showNumOfRemainingPhotos}
+              imageRadius={imageRadius}
+              layoutType={layoutType}
+            />
+          );
+        })}
+      </SC.PhotoCollageCol>
+    );
+  }
+
   return (
     <SC.PhotoCollage collageWidth={width}>
       {layout.map((data, i) => {
@@ -147,6 +237,7 @@ export const ReactPhotoCollageComponent: React.FC<
             remainingNum={remainingNum}
             showNumOfRemainingPhotos={showNumOfRemainingPhotos}
             imageRadius={imageRadius}
+            layoutType={layoutType}
           />
         );
       })}
