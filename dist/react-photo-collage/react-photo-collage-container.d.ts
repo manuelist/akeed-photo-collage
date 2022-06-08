@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 interface ReactPhotoCollageContainerProps {
     width?: string;
     height?: Array<string>;
@@ -7,6 +7,7 @@ interface ReactPhotoCollageContainerProps {
         source: string;
     }>;
     showNumOfRemainingPhotos?: boolean;
+    ofText?: string;
 }
 declare const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps>;
 export default ReactPhotoCollageContainer;
