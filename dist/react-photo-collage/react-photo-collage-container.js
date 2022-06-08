@@ -53,7 +53,7 @@ var checkProps = function (props) {
 };
 var ReactPhotoCollageContainer = function (props) {
     var currProps = react_1.useMemo(function () { return checkProps(props); }, [props]);
-    var width = currProps.width, height = currProps.height, layout = currProps.layout, photos = currProps.photos, showNumOfRemainingPhotos = currProps.showNumOfRemainingPhotos, ofText = currProps.ofText;
+    var width = currProps.width, height = currProps.height, layout = currProps.layout, photos = currProps.photos, showNumOfRemainingPhotos = currProps.showNumOfRemainingPhotos, ofText = currProps.ofText, imageRadius = currProps.imageRadius;
     var layoutNum = layout.reduce(function (accumulator, currentValue) { return accumulator + currentValue; }, 0);
     var remainingNum = photos.length - layoutNum;
     var _a = react_1.useState(false), allowRender = _a[0], setAllowRender = _a[1];
@@ -91,7 +91,7 @@ var ReactPhotoCollageContainer = function (props) {
     };
     if (allowRender) {
         return (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement(react_photo_collage_component_1.ReactPhotoCollageComponent, { width: width, height: height, layout: layout, layoutPhotoMaps: layoutPhotoMaps, layoutNum: layoutNum, remainingNum: remainingNum, showNumOfRemainingPhotos: showNumOfRemainingPhotos, openLightbox: openLightbox }),
+            react_1.default.createElement(react_photo_collage_component_1.ReactPhotoCollageComponent, { width: width, height: height, layout: layout, layoutPhotoMaps: layoutPhotoMaps, layoutNum: layoutNum, remainingNum: remainingNum, showNumOfRemainingPhotos: showNumOfRemainingPhotos, openLightbox: openLightbox, imageRadius: imageRadius }),
             react_1.default.createElement(react_images_1.ModalGateway, null, viewerIsOpen ? (react_1.default.createElement(react_images_1.Modal, { onClose: closeLightbox },
                 react_1.default.createElement(react_images_1.default, { views: photos, components: { FooterCount: CustomModalFooter }, currentIndex: currentImage }))) : null)));
     }

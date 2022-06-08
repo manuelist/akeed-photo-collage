@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { AkeedPhotoCollage } from '../src';
 
 const setting = {
-  width: '600px',
+  width: '1000px',
   height: ['250px', '170px'],
   layout: [1, 4],
   photos: [
@@ -17,7 +17,8 @@ const setting = {
     { source: 'https://images.unsplash.com/photo-1464550838636-1a3496df938b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f22dbf6c13ea7c21e803aa721437b691&auto=format&fit=crop&w=888&q=80' },
   ],
   showNumOfRemainingPhotos: true,
-  ofText: 'of'
+  ofText: 'of',
+  imageRadius: '3px'
 };
 
 ReactDOM.render(

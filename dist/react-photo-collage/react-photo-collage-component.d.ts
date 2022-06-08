@@ -12,6 +12,7 @@ interface ReactPhotoCollageComponentProps {
     remainingNum: number;
     showNumOfRemainingPhotos: boolean;
     openLightbox: any;
+    imageRadius: string;
 }
 export declare const ReactPhotoCollageComponent: React.FC<ReactPhotoCollageComponentProps>;
 export {};

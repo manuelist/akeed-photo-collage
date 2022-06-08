@@ -8,6 +8,7 @@ interface ReactPhotoCollageContainerProps {
     }>;
     showNumOfRemainingPhotos?: boolean;
     ofText?: string;
+    imageRadius?: string;
 }
 declare const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps>;
 export default ReactPhotoCollageContainer;

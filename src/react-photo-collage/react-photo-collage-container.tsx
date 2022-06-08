@@ -34,7 +34,8 @@ interface ReactPhotoCollageContainerProps {
   layout: Array<number>;
   photos: Array<{ source: string }>;
   showNumOfRemainingPhotos?: boolean;
-  ofText?: string
+  ofText?: string,
+  imageRadius?: string 
 }
 const checkProps = (props: ReactPhotoCollageContainerProps) => {
   const defaultProps = {
@@ -57,7 +58,7 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (
   props
 ) => {
   const currProps = useMemo(() => checkProps(props), [props]);
-  const { width, height, layout, photos, showNumOfRemainingPhotos, ofText } = currProps;
+  const { width, height, layout, photos, showNumOfRemainingPhotos, ofText, imageRadius } = currProps;
   const layoutNum = layout.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
@@ -110,6 +111,7 @@ const ReactPhotoCollageContainer: React.FC<ReactPhotoCollageContainerProps> = (
           remainingNum={remainingNum}
           showNumOfRemainingPhotos={showNumOfRemainingPhotos}
           openLightbox={openLightbox}
+          imageRadius={imageRadius}
         />
         <ModalGateway>
           {viewerIsOpen ? (

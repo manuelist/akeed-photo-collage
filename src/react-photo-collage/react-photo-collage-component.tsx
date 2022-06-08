@@ -12,7 +12,6 @@ SC.PhotoCollage = styled.div`
 `;
 SC.PhotoRow = styled.div`
   display: flex;
-  border: 1px solid #ddd;
   height: ${(props) => props.rowHeight};
   box-sizing: border-box;
   & + & {
@@ -34,6 +33,7 @@ SC.PhotoThumb = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: ${(props) => props.imageRadius || '0px'}
 `;
 SC.PhotoMask = styled.div`
   display: block;
@@ -70,6 +70,7 @@ interface RowPhotosProps {
   layoutNum: number;
   remainingNum: number;
   showNumOfRemainingPhotos: boolean;
+  imageRadius: string
 }
 const RowPhotos: React.FC<RowPhotosProps> = (props) => {
   const {
@@ -79,6 +80,7 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
     remainingNum,
     showNumOfRemainingPhotos,
     openLightbox,
+    imageRadius,
   } = props;
   return (
     <SC.PhotoRow rowHeight={height}>
@@ -99,7 +101,7 @@ const RowPhotos: React.FC<RowPhotosProps> = (props) => {
                 </SC.ViewMore>
               </React.Fragment>
             ) : null}
-            <SC.PhotoThumb thumb={data.source}></SC.PhotoThumb>
+            <SC.PhotoThumb thumb={data.source} imageRadius={imageRadius}></SC.PhotoThumb>
           </SC.PhotoGrid>
         );
       })}
@@ -116,6 +118,7 @@ interface ReactPhotoCollageComponentProps {
   remainingNum: number;
   showNumOfRemainingPhotos: boolean;
   openLightbox: any;
+  imageRadius: string,
 }
 export const ReactPhotoCollageComponent: React.FC<
   ReactPhotoCollageComponentProps
@@ -129,6 +132,7 @@ export const ReactPhotoCollageComponent: React.FC<
     remainingNum,
     showNumOfRemainingPhotos,
     openLightbox,
+    imageRadius,
   } = props;
   return (
     <SC.PhotoCollage collageWidth={width}>
@@ -142,6 +146,7 @@ export const ReactPhotoCollageComponent: React.FC<
             layoutNum={layoutNum}
             remainingNum={remainingNum}
             showNumOfRemainingPhotos={showNumOfRemainingPhotos}
+            imageRadius={imageRadius}
           />
         );
       })}
